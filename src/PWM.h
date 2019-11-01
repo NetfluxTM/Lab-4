@@ -13,6 +13,9 @@ void initPWMTimer3();
 // Initialize Timer 4 for PWM
 void initPWMTimer4();
 
+// Call Timer init functions, and initialize PWM enable pin(s)
+void initPWM();
+
 
 /* What parameters need to be passed in?
  * What needs to be returned from the function, if anything?

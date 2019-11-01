@@ -6,8 +6,8 @@
 
 #include <avr/io.h>
 
-void initTimer0();
-void delayMs(unsigned int delay);
-// Or should we use delayUs?
+void initTimer1();
+void delayUs(unsigned int delay);
+// Or should we use delayMs?
 
 #endif

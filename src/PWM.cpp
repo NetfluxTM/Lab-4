@@ -63,6 +63,18 @@ void initPWMTimer4(){
     TCCR4B |= (1 << CS40); // left separate for readability
 }
 
+void initPWM(){
+    initPWMTimer3();
+    initPWMTimer4();
+
+    // Set a pin to output for the L293D Enable pins
+    // (they can share one pin from the arduino)
+    // pin 52 (PB1)
+    DDRB |= (1 << DDB1);
+    PORTB |= (1 << PORTB1);
+}
+
+
 /*  Set the duty cycle with OCRnx
  *
  * What parameters need to be passed in?

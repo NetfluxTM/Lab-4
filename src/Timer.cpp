@@ -1,38 +1,42 @@
 // Description:     Uses a timer 0 (or 1) to debounce states
-//                  (state machine with debounce states will be written in main?)
+//                  (state machine with debounce states will be written in main)
 //----------------------------------------------------------------------//
 
 #include "Timer.h"
 
-/* Initialize timer 0, you should not turn the timer on here.
-* You will need to use CTC mode */
-void initTimer0(){
-    TCCR0A &= ~(1 << WGM00); // setting to CTC mode
-    TCCR0A |= (1 << WGM01);
-    TCCR0B &= ~(1 << WGM02);
+/* Initialize timer 1, you should not turn the timer on here. Use CTC mode  .*/
+void initTimer1(){
+  
+  // setting timer1 to CTC mode
+  TCCR1A &= ~(1 << WGM10);
+  TCCR1A &= ~(1 << WGM11);
+  TCCR1B |= (1 << WGM12);
+  TCCR1B &= ~(1 << WGM13);
 
-    //Sets prescaler to 64
-    TCCR0B |= (1 << CS01) | (1 << CS00);
+  // setting the clock prescaler to 8
+  TCCR1B &= ~((1 << CS12) | (1 << CS10));
+  TCCR1B |= (1 << CS11);
 
-    // setting max value to 250
-    OCR0A = 250; //effectively 1ms
-}                           
+  // setting OCR1A to 2 
+  // gives us a 1us timer
+  OCR1AH = 0x00;
+  OCR1AL = 0x02;
+}
 
 /* This delays the program an amount specified by unsigned int delay.
-* Use timer 0. Keep in mind that you need to choose your prescalar wisely
-* such that your timer is precise to 1 millisecond and can be used for
-* 100-200 milliseconds
-*/
-void delayMs(unsigned int delay){
-    unsigned int delayCnt = 0;
+ * if delay = 100, that's 100us
+ */
+void delayUs(unsigned int delay){ 
+  unsigned int count = 0;
 
-    TCNT0 = 0; // starts timer at 0
-    TIFR0 |= (1 << OCF0A); // sets compare flag to start timer
+  // setting counter to 0
+  TIFR1 |= (1 << OCF1A);
+  TCNT1 = 0;
 
-    while (delayCnt < delay) {
-        if (TIFR0 & (1 << OCF0A)) { // increment only while the flag is set (timer reached maxval = OCR0A)
-            delayCnt++;
-            TIFR0 |= (1 << OCF0A); // restart timer. will go to 0 before reaching the if statement above
-        }
-    }
+  while (count < delay){
+      if ((TIFR1 & (1 << OCF1A))){ //increment count for each flag raised. flag represents 1us.
+          count++;
+          TIFR1 |= (1 << OCF1A); // reset timer to start counting again
+      }
+  }
 }
