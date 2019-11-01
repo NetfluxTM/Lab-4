@@ -1,12 +1,83 @@
-// Description: 1. Uses 2 PWMS on timer 3 and timer 4.
-//              2. Has a changeDutyCycle function.
-//----------------------------------------------------------------------//
-
+/* Description: 1. Uses 2 PWMS on timer 3 and timer 4.
+ *              2. Has a changeDutyCycle function.
+ * 
+ * call the initTimer3 and initTimer4 function from Timer.h?
+ * or make those functions in this file?
+ * ----------------------------------------------------------------------
+ */
 
 #include "PWM.h"
 #include <avr/io.h>
 
 
+/*  Initialize Timer3 for PWM
+ *  Fast PWM 10-bit mode, non-inverting
+ */
+void initPWMTimer3(){
+    // what pin is this going to come from?
+    //pin 2 - OC3B
+    //DDRE |= (1 << DDE4);
+    //pin 3 - OC3C
+    //DDRE |= (1 << DDE5);
+    //pin 5 - OC3A
+    DDRE |= (1 << DDE3);
+
+    // Configuring the output compare module:
+    // From Table 17-2
+    // set mode 7 (Fast PWM, 10-bit)
+    // TOP = 0x03FF
+    TCCR3A |= (1 << WGM31) | (1 << WGM30);
+    TCCR3B |= (1 << WGM32);
+    // From Table 17-4
+    // set non-inverting mode
+    TCCR3A |= (1 << COM3A1); //could be added to line 28 for cleaner/faster code, but left separate for readability
+    // From Table 17-6
+    // set prescaler to 1
+    TCCR3B |= (1 << CS30); //left separate for readability
+}
+
+/*  Initialize Timer4 for PWM
+ *  Fast PWM 10-bit mode, non-inverting
+ */
+void initPWMTimer4(){
+    // what pin is this going to come from?
+    //pin 6 - OC4A
+    DDRH |= (1 << DDH3);
+    //pin 7 - OC4B
+    //DDRH |= (1 << DDH4);
+    //pin 8 - OC4C
+    //DDRH |= (1 << DDH5);
+
+    // Configuring the output compare module:
+    // From Table 17-2
+    // set mode 7 (Fast PWM, 10-bit)
+    // TOP = 0x03FF
+    TCCR4A |= (1 << WGM41) | (1 << WGM40);
+    TCCR4B |= (1 << WGM42);
+    // From Table 17-4
+    // set non-inverting mode
+    TCCR4A |= (1 << COM4A1); //could be added to line 28 for cleaner/faster code, but left separate for readability
+
+    // From Table 17-6
+    // set prescaler to 1
+    TCCR4B |= (1 << CS40); // left separate for readability
+}
+
+/*  Set the duty cycle with OCRnx
+ *
+ * What parameters need to be passed in?
+ * What needs to be returned from the function, if anything?
+ * Recieves the digital signal from the ADC, controls the duty cycle of both PWM signals
+ * 
+ * change OCR3A and OCR4A, assuming we're using those pins
+ */
 void changeDutyCycle() {
-    
+    /*  EXAMPLE: for 25% duty cycle
+     *  .25 = OCRnx / TOP
+     *  OCRnx = .25 * 1023
+     *  OCRnx ~~ 255
+     *  OCR1A = 255; or 0x3FF/4;
+     */
+    // So, how to change duty cycle based on ADC reading?
+
 }

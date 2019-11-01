@@ -7,11 +7,18 @@
 
 #include <avr/io.h>
 
+// Initialize Timer 3 for PWM
+void initPWMTimer3();
+
+// Initialize Timer 4 for PWM
+void initPWMTimer4();
+
 
 /* What parameters need to be passed in?
  * What needs to be returned from the function, if anything?
  * Recieves the digital signal from the ADC, controls the duty cycle of both PWM signals
- * Uses timer 3 and timer 4
+ * 
+ * change OCR3A and OCR4A, assuming we're using those pins
  */
 void changeDutyCycle();
 
