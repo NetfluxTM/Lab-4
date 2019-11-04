@@ -8,6 +8,7 @@
 
 #include "PWM.h"
 #include <avr/io.h>
+#include <Arduino.h>
 
 
 /*  Initialize Timer3 for PWM
@@ -69,9 +70,9 @@ void initPWM(){
 
     // Set a pin to output for the L293D Enable pins
     // (they can share one pin from the arduino)
-    // pin 52 (PB1)
-    DDRB |= (1 << DDB1);
-    PORTB |= (1 << PORTB1);
+    // pin 8 (PH5)
+    DDRH |= (1 << DDH5);
+    PORTH |= (1 << PORTH5);
 }
 
 
@@ -83,13 +84,27 @@ void initPWM(){
  * 
  * change OCR3A and OCR4A, assuming we're using those pins
  */
-void changeDutyCycle() {
-    /*  EXAMPLE: for 25% duty cycle
-     *  .25 = OCRnx / TOP
-     *  OCRnx = .25 * 1023
-     *  OCRnx ~~ 255
-     *  OCR1A = 255; or 0x3FF/4;
-     */
-    // So, how to change duty cycle based on ADC reading?
+void changeDutyCycle(bool motor) {
+    if(motor == false)
+    {
+        OCR3A = 0;
+        OCR4A = 0;
+    }
+    else
+    {
+    int adcVal = ADCL;
+    adcVal |= ((ADCH & 0x03) << 8);
 
+    //Serial.println(adcVal);
+
+
+    if(adcVal <= 480) {
+        OCR3A = 1023;
+        OCR4A = adcVal*2;
+    }
+    else { // adcVal > 480
+        OCR3A = ((adcVal*-2) + 2046);
+        OCR4A = 1023;
+    }
+    }
 }

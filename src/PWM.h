@@ -23,7 +23,7 @@ void initPWM();
  * 
  * change OCR3A and OCR4A, assuming we're using those pins
  */
-void changeDutyCycle();
+void changeDutyCycle(bool motor);
 
 
 #endif
