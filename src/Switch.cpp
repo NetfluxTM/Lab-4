@@ -8,11 +8,19 @@
 /*
  * Initializes pull-up resistor on PB3 and sets it into input mode
  */
-void initSwitchPB3(){
-    DDRB &= ~(1 << DDB3); // Set data direction for read / input
-    PORTB |= (1 << PORTB3); // setting internal pull-up resistor
-   
-    // Setting up Pin change ISRs for pin PB3
-    PCICR |= (1 << PCIE0); // enable "general" PCINT for 7-0. 
-    PCMSK0 |= (1 << PCINT3); // enable local PCINT for PCINT3
+void initSwitchPD0(){
+    DDRD &= ~(1 << DDD0); // Set data direction for read / input
+    PORTD |= (1 << PORTD0); // setting internal pull-up resistor
+
+    // Setting INT0 Interrupt
+    EIMSK &= ~(1 << INT0);
+    EICRA |= (1 << ISC00) | (1 << ISC01);
+    EIMSK |= (1 << INT0);
+
+
+
+
+    // Setting up Pin change ISRs for pin PD0
+    //PCICR |= (1 << PCIE0); // enable "general" PCINT for 7-0. 
+    //PCMSK0 |= (1 << PCINT3); // enable local PCINT for PCINT3
 }

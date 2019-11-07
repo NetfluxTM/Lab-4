@@ -92,8 +92,8 @@ void changeDutyCycle(bool motor) {
     }
     else
     {
-    int adcVal = ADCL;
-    adcVal |= ((ADCH & 0x03) << 8);
+    unsigned int adcVal = ADCL;
+    adcVal += ((unsigned int) ADCH << 8);
 
     //Serial.println(adcVal);
 

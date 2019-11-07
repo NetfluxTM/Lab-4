@@ -6,8 +6,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "D:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/include",
-                "D:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/src",
+                "c:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/include",
+                "c:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/src",
                 "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/cores/arduino",
                 "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/variants/mega",
                 "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
@@ -21,8 +21,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "D:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/include",
-                    "D:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/src",
+                    "c:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/include",
+                    "c:/Libraries/OneDrive/Documents/PlatformIO/Projects/Lab 4/src",
                     "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/cores/arduino",
                     "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/variants/mega",
                     "C:/Users/jlcha/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",

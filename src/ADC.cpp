@@ -28,17 +28,20 @@ void InitializeADC() {
     ADMUX &= ~((1 << MUX4) | (1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
     ADCSRB &= ~(1 << MUX5);
  
+    //Set the prescaler to 128
+    ADCSRA |= ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
+
     //Set the prescaler to 2
-    ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
+    //ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
  
-// Set ADATE to enable ADC Auto-trigger
-ADCSRA |= (1 << ADATE);
+    // Set ADATE to enable ADC Auto-trigger
+    ADCSRA |= (1 << ADATE);
 
     //Set the ADC to free running mode
     ADCSRB &= ~((1 << ADTS2) | (1 << ADTS1) | (1 << ADTS0));
 
-// Set ADIE to enable ADC Interrupt
-ADCSRA |= (1 << ADIE);
+    // Set ADIE to enable ADC Interrupt
+    ADCSRA |= (1 << ADIE);
 
     //Disable the digital input for pin A0 on the board
     DIDR0 |= (1 << ADC0D);

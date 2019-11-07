@@ -41,15 +41,16 @@ typedef enum state_t {
 
 // Initialize states
 volatile state_t state = motor_on;
+int ADCFlag = 0;
 
 int main(){
 Serial.begin(9600);
 
-sei();
 initTimer1();
-initPWM();
-initSwitchPB3();
+initSwitchPD0();
 InitializeADC();
+initPWM();
+sei();
 
 /* Implement a state machine in the while loop which achieves
  * the assignment requirements.
@@ -57,9 +58,11 @@ InitializeADC();
   while(1){
     switch(state){
       case motor_on:
+      Serial.println("1");
       break;
 
       case motor_off:
+      Serial.println("0");
       break;
     }
   }
@@ -68,7 +71,7 @@ InitializeADC();
 /* ISR for Switch Press
  * Debounce and toggle motors on/off
  */
-ISR(PCINT0_vect){
+ISR(INT0_vect){
   if(state == motor_off)
   {
     delayUs(2000);
